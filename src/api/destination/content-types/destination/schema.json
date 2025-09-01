@@ -10,5 +10,57 @@
     "draftAndPublish": true
   },
   "pluginOptions": {},
-  "attributes": {}
+  "attributes": {
+    "displayImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "cityOrigin": {
+      "type": "string"
+    },
+    "cityWhen": {
+      "type": "string"
+    },
+    "cars": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::car.car",
+      "mappedBy": "destinations"
+    },
+    "faqs": {
+      "type": "component",
+      "component": "shared.faqs",
+      "repeatable": true
+    },
+    "mapLink": {
+      "type": "text"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "textBlock": {
+      "type": "component",
+      "component": "shared.rich-text",
+      "repeatable": true
+    },
+    "siteTitle": {
+      "type": "string"
+    },
+    "siteDescription": {
+      "type": "text"
+    }
+  }
 }

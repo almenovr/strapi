@@ -373,6 +373,41 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCarCar extends Struct.CollectionTypeSchema {
+  collectionName: 'cars';
+  info: {
+    displayName: 'Car';
+    pluralName: 'cars';
+    singularName: 'car';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    carImg: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    className: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Blocks;
+    destinations: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::destination.destination'
+    >;
+    isBusiness: Schema.Attribute.Boolean;
+    listCars: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::car.car'> &
+      Schema.Attribute.Private;
+    price: Schema.Attribute.Integer;
+    pricePerKm: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiDestinationDestination extends Struct.CollectionTypeSchema {
   collectionName: 'destinations';
   info: {
@@ -384,16 +419,30 @@ export interface ApiDestinationDestination extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    cars: Schema.Attribute.Relation<'manyToMany', 'api::car.car'>;
+    cityOrigin: Schema.Attribute.String;
+    cityWhen: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.RichText;
+    displayImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    faqs: Schema.Attribute.Component<'shared.faqs', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::destination.destination'
     > &
       Schema.Attribute.Private;
+    mapLink: Schema.Attribute.Text;
     publishedAt: Schema.Attribute.DateTime;
+    siteDescription: Schema.Attribute.Text;
+    siteTitle: Schema.Attribute.String;
+    slug: Schema.Attribute.UID<'title'>;
+    textBlock: Schema.Attribute.Component<'shared.rich-text', true>;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -411,9 +460,23 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    blockText: Schema.Attribute.Text;
+    blockTextFive: Schema.Attribute.Text;
+    blockTextFour: Schema.Attribute.Text;
+    blockTextThree: Schema.Attribute.Text;
+    blockTextTwo: Schema.Attribute.Text;
+    blockTitle: Schema.Attribute.String;
+    blockTitleFive: Schema.Attribute.String;
+    blockTitleFour: Schema.Attribute.String;
+    blockTitleThree: Schema.Attribute.String;
+    blockTitleTwo: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    destinations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::destination.destination'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -421,7 +484,10 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    siteDescription: Schema.Attribute.Text;
     siteName: Schema.Attribute.String;
+    sliderText: Schema.Attribute.Text;
+    sliderTitle: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -937,6 +1003,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::car.car': ApiCarCar;
       'api::destination.destination': ApiDestinationDestination;
       'api::home-page.home-page': ApiHomePageHomePage;
       'plugin::content-releases.release': PluginContentReleasesRelease;

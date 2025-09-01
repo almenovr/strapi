@@ -13,6 +13,50 @@
   "attributes": {
     "siteName": {
       "type": "string"
+    },
+    "siteDescription": {
+      "type": "text"
+    },
+    "destinations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::destination.destination"
+    },
+    "sliderTitle": {
+      "type": "string"
+    },
+    "sliderText": {
+      "type": "text"
+    },
+    "blockTitle": {
+      "type": "string"
+    },
+    "blockText": {
+      "type": "text"
+    },
+    "blockTitleTwo": {
+      "type": "string"
+    },
+    "blockTextTwo": {
+      "type": "text"
+    },
+    "blockTitleThree": {
+      "type": "string"
+    },
+    "blockTextThree": {
+      "type": "text"
+    },
+    "blockTitleFour": {
+      "type": "string"
+    },
+    "blockTextFour": {
+      "type": "text"
+    },
+    "blockTitleFive": {
+      "type": "string"
+    },
+    "blockTextFive": {
+      "type": "text"
     }
   }
 }
