@@ -1,0 +1,14 @@
+{
+  "kind": "collectionType",
+  "collectionName": "napravleniyas",
+  "info": {
+    "singularName": "napravleniya",
+    "pluralName": "napravleniyas",
+    "displayName": "Направления"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {}
+}
