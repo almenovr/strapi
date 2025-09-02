@@ -31,7 +31,7 @@
       "inversedBy": "main_cities"
     },
     "text": {
-      "type": "text"
+      "type": "richtext"
     }
   }
 }
