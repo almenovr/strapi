@@ -408,6 +408,35 @@ export interface ApiCarCar extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCityCity extends Struct.CollectionTypeSchema {
+  collectionName: 'cities';
+  info: {
+    displayName: 'City';
+    pluralName: 'cities';
+    singularName: 'city';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::city.city'> &
+      Schema.Attribute.Private;
+    main_cities: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::main-city.main-city'
+    >;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiDestinationDestination extends Struct.CollectionTypeSchema {
   collectionName: 'destinations';
   info: {
@@ -420,8 +449,8 @@ export interface ApiDestinationDestination extends Struct.CollectionTypeSchema {
   };
   attributes: {
     cars: Schema.Attribute.Relation<'manyToMany', 'api::car.car'>;
-    cityOrigin: Schema.Attribute.String;
-    cityWhen: Schema.Attribute.String;
+    cityOrigin: Schema.Attribute.Relation<'oneToOne', 'api::city.city'>;
+    cityWhen: Schema.Attribute.Relation<'oneToOne', 'api::city.city'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -436,6 +465,10 @@ export interface ApiDestinationDestination extends Struct.CollectionTypeSchema {
       'api::destination.destination'
     > &
       Schema.Attribute.Private;
+    main_cities: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::main-city.main-city'
+    >;
     mapLink: Schema.Attribute.Text;
     publishedAt: Schema.Attribute.DateTime;
     siteDescription: Schema.Attribute.Text;
@@ -488,6 +521,41 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
     siteName: Schema.Attribute.String;
     sliderText: Schema.Attribute.Text;
     sliderTitle: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMainCityMainCity extends Struct.CollectionTypeSchema {
+  collectionName: 'main_cities';
+  info: {
+    displayName: 'Main City';
+    pluralName: 'main-cities';
+    singularName: 'main-city';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    city: Schema.Attribute.Relation<'manyToOne', 'api::city.city'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    destinations: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::destination.destination'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::main-city.main-city'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'>;
+    text: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1004,8 +1072,10 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::car.car': ApiCarCar;
+      'api::city.city': ApiCityCity;
       'api::destination.destination': ApiDestinationDestination;
       'api::home-page.home-page': ApiHomePageHomePage;
+      'api::main-city.main-city': ApiMainCityMainCity;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

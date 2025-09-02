@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "main_cities",
+  "info": {
+    "singularName": "main-city",
+    "pluralName": "main-cities",
+    "displayName": "Main City"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "city": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::city.city",
+      "inversedBy": "main_cities"
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "destinations": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::destination.destination",
+      "inversedBy": "main_cities"
+    },
+    "text": {
+      "type": "text"
+    }
+  }
+}

@@ -29,10 +29,9 @@
       "targetField": "title"
     },
     "cityOrigin": {
-      "type": "string"
-    },
-    "cityWhen": {
-      "type": "string"
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::city.city"
     },
     "cars": {
       "type": "relation",
@@ -61,6 +60,17 @@
     },
     "siteDescription": {
       "type": "text"
+    },
+    "main_cities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::main-city.main-city",
+      "mappedBy": "destinations"
+    },
+    "cityWhen": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::city.city"
     }
   }
 }
