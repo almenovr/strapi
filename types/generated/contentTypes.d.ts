@@ -553,6 +553,8 @@ export interface ApiMainCityMainCity extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    siteDescription: Schema.Attribute.Text;
+    siteTitle: Schema.Attribute.String;
     slug: Schema.Attribute.UID<'title'>;
     text: Schema.Attribute.RichText;
     title: Schema.Attribute.String;

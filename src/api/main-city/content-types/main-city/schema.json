@@ -32,6 +32,12 @@
     },
     "text": {
       "type": "richtext"
+    },
+    "siteTitle": {
+      "type": "string"
+    },
+    "siteDescription": {
+      "type": "text"
     }
   }
 }
